@@ -8,7 +8,7 @@ unsigned  int tempo = 5;
 
 
 //VARIAVEIS GLOBAIS         // variable for reading the pushbutton status
-unsigned int contad,flag=0,segundos;
+unsigned int contador0,contador1,flag=0,segundos;
 unsigned int proximo_Sinal = HIGH;
 unsigned int sinal_anterior = LOW;
 
