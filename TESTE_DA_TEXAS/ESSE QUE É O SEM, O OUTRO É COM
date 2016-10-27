@@ -1,0 +1,60 @@
+//ANTES - SEM VETOR
+#include <Time.h>
+
+//CONSTANTES
+unsigned  int pino_Sinal = 2;     // the number of the pushbutton pin
+unsigned  int ledPin =  13;      // the number of the LED pin
+unsigned  int tempo = 5;
+
+
+//VARIAVEIS GLOBAIS         // variable for reading the pushbutton status
+unsigned int contador0,contador1,flag=0,segundos;
+unsigned int proximo_Sinal = HIGH;
+unsigned int sinal_anterior = LOW;
+
+void setup() {
+  // initialize the LED pin as an output:
+  pinMode(ledPin, OUTPUT);      
+  // initialize the pushbutton pin as an input:
+  pinMode(pino_Sinal, INPUT);     
+  Serial.begin(9600);      // open the serial port at 9600 bps:    
+  
+}
+
+
+
+void loop(){
+  // read the state of the pushbutton value:
+  sinal_anterior = digitalRead(pino_Sinal);
+  
+  //Serial.print(" sa: ");
+  //Serial.print(sinal_anterior);
+  //Serial.print(" ps: ");
+  //Serial.println(proximo_Sinal);
+  if(sinal_anterior != proximo_Sinal){
+      flag++;
+      Serial.print("c0: ");
+      Serial.println(contador0);
+      Serial.print("c1: ");
+      Serial.println(contador1);
+        delay(tempo*188);
+        contador0=0;
+        contador1=0;
+      setTime(0);
+      Serial.print("f: ");
+      Serial.println(flag);
+  }
+      
+  if(flag>3){
+    //Serial.print("s:");
+    segundos=second();
+    //Serial.println(segundos);
+    if(segundos==0)
+        contador0++;
+    if(segundos==1)
+        contador1++;
+ }
+  proximo_Sinal = digitalRead(pino_Sinal);
+  delay(1);
+    
+}
