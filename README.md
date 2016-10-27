@@ -1,7 +1,7 @@
 # Arduino_Testes
 Construção de programas testes para Arduino UNO R3
 
-# Primeiro Teste: Aferir tempo de um dado lido da porta digital
+# Teste da Texas: Aferir tempo de um dado lido da porta digital
 Foi construído utilizando a IDE do arduino (Versão 1.0.5), disponível em https://www.arduino.cc/en/Main/Software;
 Foi utilizada a biblioteca time.h, disponível em http://playground.arduino.cc/Code/Time;
 
