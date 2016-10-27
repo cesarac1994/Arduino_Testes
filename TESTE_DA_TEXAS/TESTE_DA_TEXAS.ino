@@ -1,37 +1,34 @@
 #include <Time.h>
 
 //CONSTANTES
-const int n=9, inicia=3,tempo = 5;
-unsigned  int pino_Sinal = 2;     // the number of the pushbutton pin
-unsigned  int ledPin =  13;      // the number of the LED pin
+const int n=9, inicia=3,tempo_espera=5*188;
+const int pino_Sinal = 2;     
+const int ledPin =  13;      
 
 
-//VARIAVEIS GLOBAIS         // variable for reading the pushbutton status
+//VARIAVEIS GLOBAIS         
 int contador[n];
 unsigned int flag=0,segundos;
 unsigned int proximo_Sinal = HIGH;
 unsigned int sinal_anterior = LOW;
 int i;
 
+//CONFIGURAÇÃO DE PINOS E DA PORTA SERIAL
 void setup() {
-  // initialize the LED pin as an output:
+  //digitais (não analógicos)
+  // inicializa o pino do led 13 como saída
   pinMode(ledPin, OUTPUT);      
-  // initialize the pushbutton pin as an input:
+  // inicializa o pino do Sinal, como entrada
   pinMode(pino_Sinal, INPUT);     
-  Serial.begin(9600);      // open the serial port at 9600 bps:    
+  Serial.begin(9600);      // para o serial monitor    
   
 }
 
-
-
+//ALGORITMO PARA AFERIÇÃO DO TEMPO
 void loop(){
-  // read the state of the pushbutton value:
+  //sinal lido para ser comparado
   sinal_anterior = digitalRead(pino_Sinal);
   
-  //Serial.print(" sa: ");
-  //Serial.print(sinal_anterior);
-  //Serial.print(" ps: ");
-  //Serial.println(proximo_Sinal);
   if(sinal_anterior != proximo_Sinal){
       flag++;
       for(i=0;i<n;i++){
@@ -40,23 +37,21 @@ void loop(){
         Serial.print(":");
         Serial.print(contador[i]);
       }
-      delay(tempo*188);
+      delay(tempo_espera); //delay para dar tempo de olhar as informações coletadas
       for(i=0;i<n;i++)
         contador[i]=0;
-      setTime(0);
+      setTime(0); //zera o cronômetro
       Serial.print(" f: ");
       Serial.println(flag);
   }
       
   if(flag>=inicia){
-    //Serial.print("s:");
-    segundos=second();
-    //Serial.println(segundos);
+    segundos=second(); //retorna o valor em segundos do cronômetro
     for(i=0;i<n;i++)
       if(segundos==i)
         contador[i]++;
  }
-  proximo_Sinal = digitalRead(pino_Sinal);
+  proximo_Sinal = digitalRead(pino_Sinal); //sinal lido para ser comparado
   delay(1);
     
 }
